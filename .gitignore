@@ -1,0 +1,5 @@
+*.pyc
+src/bmri/__pycache__
+build/
+dist/
+src/bmri.egg-info/
