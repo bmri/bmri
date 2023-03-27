@@ -1,1 +1,4 @@
 gdown
+nibabel
+scikit-image
+matplotlib
