@@ -6,7 +6,6 @@ from skimage.measure import label, regionprops, regionprops_table
 from skimage.morphology import remove_small_objects, remove_small_holes
 from skimage.filters import sobel as sobel_edge
 
-# method : {'generic', 'gaussian', 'mean', 'median'}
 
 def cGAN_bet_pp(be_mean, threshold=0.1):
     out = np.zeros_like(be_mean)
@@ -18,7 +17,7 @@ def cGAN_bet_pp(be_mean, threshold=0.1):
         local_thresh = threshold_local(image,
                                        block_size,
                                        offset=0,
-                                       method = "mean")
+                                       method = "mean") # method : {'generic', 'gaussian', 'mean', 'median'}
         binary_local = image > local_thresh
 
         binary_local = remove_small_objects(binary_local)

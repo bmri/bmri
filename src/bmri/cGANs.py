@@ -13,7 +13,6 @@ def get_lat_var(batch_size, z_dim):
     z = tf.random.normal((batch_size, 1, 1, z_dim))
     return z 
 
-
 def cGAN_input_gen(input_image,
                    n_z,
                    z_dim,
@@ -88,34 +87,8 @@ def cGAN_predict_volume(G_model, input_volume, n_z, z_dim, post=True, threshold 
     
     return output_volume_mean, output_volume_std, output_volume_mean_mask
 
-
-
-def post_process(mri_volume_mask, smooth_size = 3):
-    """
-    postprocess for brain mask
-    smoothing
-    removing small objects 
-    """
-    
-    mri_volume_mask_post = ndimage.median_filter (mri_volume_mask, smooth_size)
-    mri_volume_mask_post = remove_islands(mri_volume_mask_post)
-    
-    return mri_volume_mask_post
-    
-    
-
-
-
 def binary_threshold(volume, threshold=0.04, dtype=np.float32):
     volume_cp = np.copy(volume)
     volume_cp [volume_cp<threshold] = 0
     volume_cp [volume_cp>=threshold] = 1
     return np.array(volume_cp).astype(dtype)
-
-def remove_islands(image, island_size=100000, hole_size=100000):
-    
-    image_filtered = remove_small_objects(image.astype(bool), min_size=island_size, connectivity=2, in_place=False)
-
-    image_filtered = remove_small_holes(image_filtered, area_threshold=hole_size, connectivity=2, in_place=False)  
-    
-    return image_filtered

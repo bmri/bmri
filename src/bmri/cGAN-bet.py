@@ -1,4 +1,3 @@
-#!/home/saeed/anaconda3/envs/bmri/bin/python
 import os
 import sys
 # print(sys.executable)
@@ -15,14 +14,14 @@ from skimage.transform import resize
 from pathlib import Path
 
 from load_pre_process import *
-from models import generator_type1
+from models import generator_BE
 from cGANs import cGAN_predict_volume
 from post_process import cGAN_bet_pp
 from utils import saved_models_dir, sample_images_dir, outputs_dir
+from utils import check_BE_model
 # from utils import save_report_images
 
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
-
 
 parser = argparse.ArgumentParser(description="Process Nifti files.")
 
@@ -54,28 +53,23 @@ input_file_name = input_path.name
 
 
 
-BE_model = generator_type1(Input_W=128,
-                           Input_H=128,
-                           Input_C=1,
-                           Z_Dim=128,
-                           k0=16,
-                           reg_param=1e-07)
+# loading the model
+check_BE_model()
 
-BE_model.load_weights(f'{model_dir}/model_brain_extraction_cGAN_128x128_z128_weights.h5')
+BE_model = generator_BE(Input_W=128,
+                        Input_H=128,
+                        Input_C=1,
+                        Z_Dim=128,
+                        k0=16,
+                        reg_param=1e-07)
 
-
-# BE_model = tf.keras.models.load_model(f'{model_dir}/model_brain_extraction_cGAN_128x128_z128.h5', #THIS IS EXT
-#                            custom_objects = {"ReLU": tf.keras.layers.ReLU})
-
-
-
-
-# Loading
+# BE_model.load_weights(f'{model_dir}/model_brain_extraction_cGAN_128x128_z128_weights.h5')
+BE_model.load_weights(f'{model_dir}/model_brain_extraction_cGAN_128x128_z128_weights_dl.h5')
+print("Model loaded successfully")
+# Loading the image
 img = nib.load(args.input_head_img)
-
-# image_data_shape = np.shape(nifti_image.get_fdata())
-
-# img = nib.load(img_file)
+image_data_shape = np.shape(img.get_fdata())
+print(f"Image original size: {image_data_shape}")
 
 # This part is inspired from: https://github.com/nipy/nibabel/issues/1063#issuecomment-967124057
 # keep original orientation
@@ -97,12 +91,12 @@ img_axial_shape = np.shape(img_axial)
 # axial image to deep learning model input (paddig and resizing)
 img_axial_dl_input = img_to_dl_input_axial(img_axial, model_H, model_W, pad1, pad2)
 
+# Normalize the data (this version is volume-based normalized)
 img_axial_dl_input = normalize(img_axial_dl_input)
 
-# perform prediction (the size will not be changed)
-# img_transformed = dummy(img_axial_dl_input)
+# img_transformed = dummy(img_axial_dl_input) # to test other functions
 
-
+# Perfomr prediction
 be_mean, be_std, be_mask = cGAN_predict_volume(G_model = BE_model,
                                                input_volume = img_axial_dl_input,
                                                n_z   = n_samples,
@@ -112,6 +106,8 @@ be_mean, be_std, be_mask = cGAN_predict_volume(G_model = BE_model,
 
 be_mask_pp = cGAN_bet_pp(be_mean)[:,:,:,np.newaxis]
 
+# @ TODO:
+# Generating report 
 # sample_img = np.flip(np.squeeze(img_axial_dl_input)[:,:,64])
 # sample_be  = np.flip((np.squeeze(be_mask_pp)*np.squeeze(be_mean))[:,:,64])
 # sample_std = np.flip(np.squeeze(be_std)[:,:,64])
@@ -122,34 +118,25 @@ be_mask_pp = cGAN_bet_pp(be_mean)[:,:,:,np.newaxis]
 #     print("Could not generate report")
 #     pass
 
-# img_transformed back to axial size:
+# img_transformed back to axial original size:
 be_mask_pp_resized = dl_output_to_axial(be_mask_pp, model_H, model_W, pad1, pad2, original_axial_shape = img_axial_shape)
 
 # axial to canonical
 be_mask_pp_canonical_data =  axial_to_canonical(be_mask_pp_resized, nose_up=nose_up)
 be_mask_pp_canonical_data = np.reshape(be_mask_pp_canonical_data, np.shape(img_canonical_data))
 
-
 img_transformed_canonical_data = be_mask_pp_canonical_data * img_canonical_data
 
-print(np.shape(img_canonical_data))
-print(np.shape(img_transformed_canonical_data))
-
+# These are for dummy function devepment, ignore them
+# print(np.shape(img_canonical_data))
+# print(np.shape(img_transformed_canonical_data))
 # img_original = img_canonical.as_reoriented(from_canonical)
 # img_transformed = img_canonical
 
 img_transformed = nib.Nifti1Image(img_transformed_canonical_data, img_canonical.affine, img_canonical.header)
-
 img_transformed_original = img_transformed.as_reoriented(from_canonical)
 
 
-
-
-# Print the image data numpy array shape
-# print("Sample", i+1, "image data shape:", image_data_shape)
-
-# # Save the Nifti file at the specified save address
-# save_address = args.save_address.split(".nii.gz")[0] + str(i+1) + ".nii.gz"
 save_address = args.output_brain_img
 try:
     nib.save(img_transformed_original, save_address)
@@ -159,3 +146,4 @@ except:
     nib.save(img_transformed_original, outputs_dir + save_address )
     
     
+

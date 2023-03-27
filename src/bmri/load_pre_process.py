@@ -28,7 +28,7 @@ def img_to_dl_input_axial(img_axial, model_H, model_W, pad1, pad2, slices=None, 
     if slices==None: slices = original_size[0]
     
     window_shape=(slices, model_H-2*pad1, model_W-2*pad2)  
-    print("window_shape", window_shape)
+#     print("window_shape", window_shape)
     img_window = resize(img_axial, output_shape=window_shape, order=1, anti_aliasing=True, preserve_range=True)
 
     img_resized = np.zeros(shape = (slices, model_H, model_W))
@@ -48,8 +48,6 @@ def dl_output_to_axial(dl_out_img, model_H, model_W, pad1, pad2, original_axial_
 # if slice_normalized:  
 #     t1_img = np.array([normalize(t1_img[slice_index]) for slice_index in range(len(t1_img))])
     
-
-
 def normalize(data, scale=1., data_type = np.float32):
     """
     returns a min-max normalized data as numpy array 
