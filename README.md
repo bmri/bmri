@@ -1,10 +1,20 @@
 # bmri
 
 ## Description
-Provide a brief overview of the repository and its purpose.
+This version of the bmri repository contains the code for the paper:
+Probabilistic Brain Extraction in MR Images via Conditional Generative Adversarial Networks
+https://www.biorxiv.org/content/10.1101/2022.03.14.484346v1
+An updated version of the paper is under review.
+Please feel free to contact us if you have any questions or feedback.
 
 ## Installation
-Provide instructions on how to install and setup the project, including any dependencies or requirements.
+It is highly recommended to use a conda environment for installation.
+
+"""
+conda create -n bmri_env python=3.9
+"""
+conda activate bmri_env
+conda install -c anaconda tensorflow-gpu=2.4.1
 
 ## Usage
 Describe how to use the project and any available features, including examples if applicable.
