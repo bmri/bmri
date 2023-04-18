@@ -7,8 +7,6 @@ from functools import partial
 from skimage.morphology import remove_small_objects
 from skimage.morphology import remove_small_holes
 
-
-
 def get_lat_var(batch_size, z_dim):
     z = tf.random.normal((batch_size, 1, 1, z_dim))
     return z 
