@@ -2,7 +2,7 @@
 
 ## Description
 
-This version of the bmri repository is provided for the reviewers' consideration and contains the code for the following paper:
+This version of the bmri repository is provided for the reviewers' consideration for the following paper:
 
 Probabilistic Brain Extraction in MR Images via Conditional Generative Adversarial Networks
 
@@ -45,7 +45,7 @@ python cGAN-bet.py -i path_to_input_head_image.nii.gz -o path_to_output_brain_im
 ```
 The number of samples can also be provided using optional flag -n (default is 10)
 
-In the first run, the script will automatically download the required model to ~/cGAN-BET/saved_models/
+In the first run, the script will automatically download the model.
 
 Also it downloads a sample image from cc359 dataset for testing the algorithm to: ~/cGAN-BET/sample_images/
 
@@ -54,5 +54,5 @@ It also creates an output directory. If the image can not be saved as the provid
 ## Citation
 Please cite the following paper if you use cGAN-bet
 https://www.biorxiv.org/content/10.1101/2022.03.14.484346v1
-An updated version of the paper is under review. The references will be updated upon acceptance.
+An updated version of the paper is under review. The references will be updated accordingly.
 
