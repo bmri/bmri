@@ -16,7 +16,6 @@ Act_func   = 'ReLU'
 Act_param  = 0.2
 use_bias   = True
 
-
 if Act_func == 'ReLU':
   activation_func = keras.layers.ReLU(negative_slope=Act_param)
 elif Act_func == 'tanh':  
@@ -25,8 +24,6 @@ elif Act_func == 'sigmoid':
   activation_func = keras.layers.Activation('sigmoid') 
 elif Act_func == 'sin':
   activation_func = tf.math.sin   
-
-
 
 def CondInsNorm(input_X,input_Z,reg_param=1.0e-7):
   N,H,W,Nx = input_X.shape
