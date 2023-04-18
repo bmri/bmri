@@ -39,7 +39,6 @@ parser.add_argument("-n", "--num-samples", dest="num_samples", type=int, default
 
 args = parser.parse_args()
 
-
 # Parameters
 model_H, model_W, pad1, pad2 = 128, 128, 4, 4
 nose_up = True
