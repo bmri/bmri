@@ -1,12 +1,10 @@
 import os
 import gdown
+import matplotlib.pyplot as plt
 
 saved_models_dir  = os.path.join(os.path.expanduser('~'), 'cGAN-BET/saved_models')
 sample_images_dir = os.path.join(os.path.expanduser('~'), 'cGAN-BET/sample_images')
 outputs_dir       = os.path.join(os.path.expanduser('~'), 'cGAN-BET/outputs_dir/')
-
-
-import matplotlib.pyplot as plt
 
 def save_report_images(images, report_dir=outputs_dir):
     img_name = ["sample_img", "sample_be", "sample_std"]
@@ -17,8 +15,6 @@ def save_report_images(images, report_dir=outputs_dir):
         ax.imshow(img, cmap=cmaps[i])
         plt.savefig(f'{report_dir}/{img_name[i]}.png')
         
-
-
 def check_BE_model():
 #     from bmri.utils import saved_models_dir, sample_images_dir, outputs_dir # if run from outside
 
@@ -27,7 +23,6 @@ def check_BE_model():
     
     sample_image_url  = 'https://drive.google.com/uc?export=download&id=1F8I6WmhrwOhpGoRyXQIaY4jAibmjMOC9'    
     sample_image_name = 'CC359_CC0001_philips_15_55_M.nii.gz'
-
 
     def create_dirs(_dir):
         if not os.path.exists(_dir):
