@@ -6,7 +6,6 @@ from skimage.measure import label, regionprops, regionprops_table
 from skimage.morphology import remove_small_objects, remove_small_holes
 from skimage.filters import sobel as sobel_edge
 
-
 def cGAN_bet_pp(be_mean, threshold=0.1):
     out = np.zeros_like(be_mean)
     for i in range(np.shape(be_mean)[0]):
