@@ -11,11 +11,8 @@ def canonical_to_axial(img_canonical_data, nose_up = True):
     return img_axial
 
 def axial_to_canonical(img_axial_data, nose_up = True):
-    
     if nose_up: img_axial_data = np.flip(img_axial_data, axis = 1) # nose upward in plt.imshow()
-
     img_canonical_data = np.swapaxes(img_axial_data, 0, 2)
-
     return img_canonical_data
 
 
@@ -25,8 +22,7 @@ def img_to_dl_input_axial(img_axial, model_H, model_W, pad1, pad2, slices=None, 
     """
     assert len(img_axial.shape) == 3, "image dimension should be 3"
     original_size = img_axial.shape 
-    if slices==None: slices = original_size[0]
-    
+    if slices==None: slices = original_size[0]   
     window_shape=(slices, model_H-2*pad1, model_W-2*pad2)  
 #     print("window_shape", window_shape)
     img_window = resize(img_axial, output_shape=window_shape, order=1, anti_aliasing=True, preserve_range=True)
