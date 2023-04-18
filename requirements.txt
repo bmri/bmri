@@ -1,4 +1,4 @@
-gdown
 nibabel
+gdown
 scikit-image
 matplotlib
