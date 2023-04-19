@@ -31,7 +31,7 @@ parser.add_argument("-i", "--input", dest="input_head_img", type=str, required=T
 parser.add_argument("-o", "--output", dest="output_brain_img", type=str, required=True,
                     help="Output extracted brain image")
 
-parser.add_argument("-n", "--num-samples", dest="num_samples", type=int, default=10,
+parser.add_argument("-n", "--num-samples", dest="num_samples", type=int, default=20,
                     help="The number of sample brains to generate")
 
 # parser.add_argument("-r", "--report", dest="report_dir", type=str, default=outputs_dir,
