@@ -47,7 +47,7 @@ The number of samples can also be provided using optional flag -n (default is 20
 
 In the first run, the script will automatically download the model.
 
-Also it downloads a sample image from cc359 dataset for testing the algorithm to: ~/cGAN-BET/sample_images/
+Also it downloads a sample image from cc359 dataset (https://www.ccdataset.com/) for testing the algorithm to: ~/cGAN-BET/sample_images/
 
 It also creates an output directory. If the image can not be saved as the provided path_to_output_brain_image.nii.gz, it will be saved in ~/cGAN-BET/outputs_dir/ to prevent losing the result.
 
