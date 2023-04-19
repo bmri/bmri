@@ -22,7 +22,10 @@ def check_BE_model():
     model_name = 'model_brain_extraction_cGAN_128x128_z128_weights_dl.h5'
     
     sample_image_url  = 'https://drive.google.com/uc?export=download&id=1F8I6WmhrwOhpGoRyXQIaY4jAibmjMOC9'    
-    sample_image_name = 'CC359_CC0001_philips_15_55_M.nii.gz'
+#     sample_image_name = 'CC359_CC0001_philips_15_55_M.nii.gz'
+    sample_image_name = 'sample_cc359_0001.nii.gz'
+    
+    
 
     def create_dirs(_dir):
         if not os.path.exists(_dir):
@@ -35,9 +38,11 @@ def check_BE_model():
     if not os.path.isfile(saved_models_dir+"/"+model_name):
         url = model_url
         output = saved_models_dir+"/"+model_name
-        gdown.download(url, output, quiet=False)
+        print("Downloading model ....")
+        gdown.download(url, output, quiet=True)
         
     if not os.path.isfile(sample_images_dir+"/"+sample_image_name):
         url = sample_image_url
         output = sample_images_dir+"/"+sample_image_name
-        gdown.download(url, output, quiet=False)
+        print("Downloading sample image ....")
+        gdown.download(url, output, quiet=True)
