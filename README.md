@@ -43,7 +43,7 @@ To perform brain extraction, run the python code as:
 ```bash
 python ~/cGAN-BET/bmri/src/bmri/cGAN-bet.py -i ~/cGAN-BET/sample_images/sample_cc359_0001.nii.gz -o ~/cGAN-BET/outputs_dir/sample_cc359_0001_cGAN_bet_brain.nii.gz
 ```
-The number of samples can also be provided using optional flag -n (default is 10)
+The number of samples can also be provided using optional flag -n (default is 20)
 
 In the first run, the script will automatically download the model.
 
