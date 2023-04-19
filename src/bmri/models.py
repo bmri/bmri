@@ -6,24 +6,12 @@ import tensorflow as tf
 
 from tensorflow.math import divide as division
 from tensorflow import keras
-# import tensorflow_addons as tfa
 from functools import partial
 
-np.random.seed(1008)
-
-#reg_param   = 1e-5
-Act_func   = 'ReLU'
 Act_param  = 0.2
 use_bias   = True
 
-if Act_func == 'ReLU':
-  activation_func = keras.layers.ReLU(negative_slope=Act_param)
-elif Act_func == 'tanh':  
-  activation_func = keras.layers.Activation('tanh')
-elif Act_func == 'sigmoid':  
-  activation_func = keras.layers.Activation('sigmoid') 
-elif Act_func == 'sin':
-  activation_func = tf.math.sin   
+activation_func = keras.layers.ReLU(negative_slope=Act_param)
 
 def CondInsNorm(input_X,input_Z,reg_param=1.0e-7):
   N,H,W,Nx = input_X.shape
@@ -61,18 +49,10 @@ def ResBlock(input_X,input_Z=None,normalization=None,reg_param=1.0e-7):
   padding = tf.constant([[0,0],[1,1],[1,1], [0, 0]])
 
   X = input_X
-
   if normalization =='cin':
     assert input_Z is not None
     X = CondInsNorm(input_X=X,input_Z=input_Z)
-  elif normalization == 'in':  
-    X = tfa.layers.InstanceNormalization()(X)
-  elif normalization == 'bn':
-    X = keras.layers.BatchNormalization()(X)
-  elif normalization == 'ln':
-    X = keras.layers.LayerNormalization()(X)  
     
-
   X1  = keras.layers.Conv2D(filters=Nx,kernel_size=1,strides=1,padding='valid',kernel_regularizer=keras.regularizers.l2(reg_param))(X)  
 
   X2  = activation_func(X)
@@ -88,13 +68,7 @@ def ResBlock(input_X,input_Z=None,normalization=None,reg_param=1.0e-7):
   if normalization =='cin':
     assert input_Z is not None
     X2 = CondInsNorm(input_X=X2,input_Z=input_Z)  
-  elif normalization == 'in':  
-    X2 = tfa.layers.InstanceNormalization()(X2)  
-  elif normalization == 'bn':
-    X2 = keras.layers.BatchNormalization()(X2)
-  elif normalization == 'ln':
-    X2 = keras.layers.LayerNormalization()(X2)      
-    
+     
   X2 = activation_func(X2)    
 
   X2  = tf.pad(X2,padding,"REFLECT")
