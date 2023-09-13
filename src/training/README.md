@@ -29,3 +29,9 @@ optional arguments:
   --main_dir MAIN_DIR          Results parent directory
 ```
 Datasets should be strored in .h5 format insidet DATADIR/train/.h5  and DATADIR/valid/.h5
+
+
+## Citation
+Please cite the following paper if you use cGAN-bet
+https://www.biorxiv.org/content/10.1101/2022.03.14.484346v1
+An updated version of the paper is under review. The references will be updated accordingly.
