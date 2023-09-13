@@ -1,9 +1,10 @@
 
-## usuag:
+## Usage:
 The following provides the instructions and parameters for training.
 ``` bash
 python train_cGAN.py -h
 ```
+
 ``` bash
 usage: train_cGAN.py [-h] [--device DEVICE] --datadir DATADIR [--gp_coef GP_COEF] [--n_critic N_CRITIC] [--n_epoch N_EPOCH]
                      [--z_dim Z_DIM] [--batch_size BATCH_SIZE] [--seed_no SEED_NO] [--savefig_freq SAVEFIG_FREQ]
@@ -27,4 +28,4 @@ optional arguments:
   --sample_plots SAMPLE_PLOTS  Number of validation images to generate plots
   --main_dir MAIN_DIR          Results parent directory
 ```
-datasets should be strored in .h5 format insidet DATADIR/train/.h5  and DATADIR/valid/.h5
+Datasets should be strored in .h5 format insidet DATADIR/train/.h5  and DATADIR/valid/.h5
