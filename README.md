@@ -38,7 +38,9 @@ pip install .
 
 ## Usage (Inference)
 Please make sure to follow installation instructions and have the environment activated
+
 To use brain extraction find "cGAN-bet.py" in the "bmri_dir/bmri/src/bmri/"
+
 To perform brain extraction, run the python code as:
 
 ```bash
