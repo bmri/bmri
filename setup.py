@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 setup(
     name='bmri',
-    version='0.0.2',
+    version='0.0.4',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=requirements
