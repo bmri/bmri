@@ -36,7 +36,8 @@ pip install .
 ```
 
 
-## Usage
+## Usage (Inference)
+Please make sure to follow installation instructions and have the environment activated
 To use brain extraction find "cGAN-bet.py" in the "bmri_dir/bmri/src/bmri/"
 To perform brain extraction, run the python code as:
 
@@ -50,6 +51,9 @@ In the first run, the script will automatically download the model.
 Also it downloads a sample image from cc359 dataset (https://www.ccdataset.com/) for testing the algorithm to: ~/cGAN-BET/sample_images/
 
 It also creates an output directory. If the image can not be saved as the provided path_to_output_brain_image.nii.gz, it will be saved in ~/cGAN-BET/outputs_dir/ to prevent losing the result.
+
+## Usage (Training)
+Please refer to https://github.com/bmri/bmri/tree/main/src/training for training a cGAN model
 
 ## Citation
 Please cite the following paper if you use cGAN-bet
