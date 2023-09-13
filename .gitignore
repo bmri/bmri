@@ -1,0 +1,13 @@
+*.h5
+*.pny
+*.npy
+*.nii
+*.nii.gz
+*.mat
+*.log
+
+*checkpoint*
+*.pyc
+*.stl
+*.tar
+*.png
